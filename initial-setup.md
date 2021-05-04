@@ -1,10 +1,10 @@
 # Follow these steps to set up cloud environemnt
 
-Building your own Kubernetes cluster is a necessary skill for the CKA certification, according to the exam objectives. In addition to this, you will need your own Kubernetes cluster so you can experiment hands-on with the topics and skills that will be covered in this course. In this lesson, we walk through the process of building a Kubernetes cluster using kubeadm. Follow along to build your own cluster!
+Building your own Kubernetes cluster is a necessary skill for the CKA certification, according to the exam objectives. In addition to this, you will need your own Kubernetes cluster so you can experiment hands-on with the topics and skills that will be covered in this course. In this lesson, we walk through the process of building a Kubernetes cluster using `kubeadm`. Follow along to build your own cluster!
 
 ## Relevant Documentation
- - [Installing kubeadm]()
- - [Creating a cluster with kubeadm]()
+ - [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+ - [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
 ## Lesson Reference
 
