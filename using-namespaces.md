@@ -35,6 +35,8 @@ $ kubectl create namespace my-namespace
 
  - [Namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
+ ---
+
 # Hands-on Demo steps:
 
 1. run `kubectl get namespaces`

@@ -6,6 +6,8 @@ Building your own Kubernetes cluster is a necessary skill for the CKA certificat
  - [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
  - [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
+ ---
+
 ## Lesson Reference
 
   If you are using cloud playground, create three servers with the following settings:
@@ -120,3 +122,5 @@ sudo kubeadm join ...
 ```
 kubectl get nodes
 ```
+
+
