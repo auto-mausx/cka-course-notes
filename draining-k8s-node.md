@@ -73,7 +73,7 @@ metadata:
   labels:
     app: my-deployment
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: my-deployment
@@ -139,3 +139,67 @@ spec:
     pod/my-deployment-5f85c44867-pvcrh evicted
     node/instance-3-cka evicted
     ```
+
+8. run `kubectl get pods -o wide`
+    - Output:
+    ```
+    NAME                             READY   STATUS    RESTARTS   AGE   IP              NODE             NOMINATED NODE
+   READINESS GATES
+    my-deployment-5f85c44867-4bcft   1/1     Running   0          9d    192.168.247.3   instance-2-cka   <none>
+      <none>
+    my-deployment-5f85c44867-bzq64   1/1     Running   0          10d   192.168.247.1   instance-2-cka   <none>
+      <none>
+    my-deployment-5f85c44867-c4hz5   1/1     Running   0          10d   192.168.247.2   instance-2-cka   <none>
+      <none>
+   ```
+
+     - *Note: the deployment pods have been recreated and the "my-pod" pod has not, this is because it must stay true to the deployment yml file replicas (3). And they are all running on the same node since the other was drained. New pods were spun up to facilitate this condition*
+
+9. run `kubectl get nodes`
+    - Output:
+    ```
+    NAME             STATUS                     ROLES                  AGE   VERSION
+    instance-1-cka   Ready                      control-plane,master   11d   v1.20.1
+    instance-2-cka   Ready                      <none>                 11d   v1.20.1
+    instance-3-cka   Ready,SchedulingDisabled   <none>                 11d   v1.20.1   <= Note the status
+    ```
+
+    - *Note: this means k8s will not run additional pods on this node since maintenance tasks are still on-going*
+
+10. run `kubectl uncordon instance-3-cka`
+    - Output:
+    ```
+    node/instance-3-cka uncordoned
+    ```
+
+    - *Note: This has now uncordoned the node so it can be used again*
+
+11. run `kubectl get nodes`
+    - Output:
+    ```
+    NAME             STATUS   ROLES                  AGE   VERSION
+    instance-1-cka   Ready    control-plane,master   11d   v1.20.1
+    instance-2-cka   Ready    <none>                 11d   v1.20.1
+    instance-3-cka   Ready    <none>                 11d   v1.20.1  <= Note the status
+    ```
+
+    - *Note: the node is now up and running, ready to use again*
+
+12. run `kubectl get pods -o wide`
+    - Output:
+    ```
+    NAME                             READY   STATUS    RESTARTS   AGE   IP              NODE             NOMINATED NODE   READINESS GATES
+    my-deployment-5f85c44867-4bcft   1/1     Running   0          9d    192.168.247.3   instance-2-cka   <none>           <none>
+    my-deployment-5f85c44867-bzq64   1/1     Running   0          10d   192.168.247.1   instance-2-cka   <none>           <none>
+    my-deployment-5f85c44867-c4hz5   1/1     Running   0          10d   192.168.247.2   instance-2-cka   <none>           <none>
+    ```
+
+    - *Note: Take note that uncordoning the node did not change the deployment back to the previously drained node, all the deployments are still on the same node as it was after the previous node was drained*
+
+13. run `kubectl delete deployment my-deployment`
+    - Output:
+    ```
+    deployment.apps "my-deployment" deleted
+    ```
+
+    - *Note: this is to clean up cluster for future labs*
