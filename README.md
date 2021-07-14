@@ -7,6 +7,7 @@
 ## Directory
 
 - ## Getting Started
+
   - [Initial Setup](./GettingStarted/initial-setup.md)
 
   - [Using Namespaces](./GettingStarted/using-namespaces.md)
