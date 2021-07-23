@@ -73,8 +73,11 @@ kubectl get endpoints svc-clusterip
 
 4. Create a busybox Pod to test your service:
 
-```YAML
+```bash
 vi pod-svc-test.yml
+```
+
+```YAML
 apiVersion: v1
 kind: Pod
 metadata:
